@@ -3,7 +3,7 @@
 
 
     <groupId>myParentGroupId</groupId>
-    <artifactId>myArtifactId</artifactId>
+    <artifactId>dukes-liberty</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     
@@ -65,9 +65,9 @@
     </repositories>
 
     <modules>
-        <module>myProject-application</module>
-        <module>myProject-wlpcfg</module>
-        <module>myProject-deploy</module>
+        <module>dukes-liberty-application</module>
+        <module>dukes-liberty-deploy</module>
+        <module>dukes-liberty-wlpcfg</module>
     </modules>
     
     
@@ -206,4 +206,5 @@
             </plugins>
         </pluginManagement>
     </build>
+    <name>Duke's Liberty Microservice</name>
 </project>

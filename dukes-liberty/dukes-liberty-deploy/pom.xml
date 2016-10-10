@@ -10,7 +10,7 @@
     </parent>
     
     <groupId>myGroupId</groupId>
-    <artifactId>myArtifactId-deploy</artifactId>
+    <artifactId>dukes-liberty-deploy</artifactId>
     <packaging>pom</packaging>
     
     <dependencies>
@@ -33,4 +33,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <name>Duke's Liberty Microservice Deploy</name>
 </project>

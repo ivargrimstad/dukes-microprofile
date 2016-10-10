@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.agilejava</groupId>
   <artifactId>dukes-swarm</artifactId>
-  <name>WildFly Swarm Example</name>
+  <name>Duke's Swarm Microservice</name>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 

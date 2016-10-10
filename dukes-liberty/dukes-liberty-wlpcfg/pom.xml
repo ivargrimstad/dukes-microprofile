@@ -8,7 +8,7 @@
     </parent>
 
     <groupId>myGroupId</groupId>
-    <artifactId>myArtifactId-wlpcfg</artifactId>
+    <artifactId>dukes-liberty-wlpcfg</artifactId>
     <packaging>liberty-assembly</packaging>
 
     <dependencies>
@@ -115,5 +115,5 @@
             </plugin>
         </plugins>
     </build>
-
+    <name>Duke's Liberty Microservice Config</name>
 </project>
