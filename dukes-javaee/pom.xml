@@ -65,11 +65,6 @@
                             <baseImage>websphere-liberty:javaee7</baseImage>
                             <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
                             <resources>
-<!--                                <resource>
-                                    <targetPath>/opt/ibm/wlp/templates/servers/defaultServer/</targetPath>
-                                    <directory>../common/src/main/resources/</directory>
-                                    <include>server.xml</include>
-                                </resource>                             -->
                                 <resource>
                                     <targetPath>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</targetPath>
                                     <directory>${project.build.directory}</directory>
