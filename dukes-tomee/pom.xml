@@ -29,11 +29,11 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.tomee.maven</groupId>
+                <groupId>org.apache.openejb.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>7.0.1</version>
+                <version>1.7.4</version>
                 <configuration>
-                    <tomeeClassifier>webprofile</tomeeClassifier>
+                    <tomeeClassifier>jaxrs</tomeeClassifier>
                 </configuration>
             </plugin>
         </plugins>
