@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>myParentGroupId</groupId>
+    <groupId>eu.agilejava</groupId>
     <artifactId>dukes-liberty</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -32,10 +32,10 @@
         <wlpServerName>LibertyProjectServer</wlpServerName>
         <testServerHttpPort>9080</testServerHttpPort>
         <testServerHttpsPort>9443</testServerHttpsPort>
-        <warName>myArtifactId-application</warName>
+        <warName>dukes-liberty-application</warName>
         <warVersion>1.0-SNAPSHOT</warVersion>
         <!--This is set in the ibm-web-ext.xml file -->
-        <warContext>myLibertyApp</warContext>
+        <warContext>dukes-liberty</warContext>
         <package.file>${project.build.directory}/${app.name}.zip</package.file>
         <packaging.type>usr</packaging.type>
         
@@ -75,7 +75,7 @@
         <profile>
             <id>localServer</id>
             <modules>
-                <module>myProject-deploy/myProject-localServer</module>
+                <module>dukes-liberty-deploy/dukes-liberty-localServer</module>
             </modules>
         <activation>
                 <activeByDefault>true</activeByDefault>
@@ -84,7 +84,7 @@
         <profile>
             <id>bluemix</id>
             <modules>
-                <module>myProject-deploy/myProject-bluemix</module>
+                <module>dukes-liberty-deploy/dukes-liberty-bluemix</module>
             </modules>
         </profile>
         <profile>
