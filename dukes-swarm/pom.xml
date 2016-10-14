@@ -29,7 +29,7 @@
   </dependencyManagement>
 
   <build>
-    <finalName>demo</finalName>
+    <finalName>dukes-swarm</finalName>
     <plugins>
       <plugin>
         <groupId>org.wildfly.swarm</groupId>
@@ -47,13 +47,6 @@
   </build>
 
   <dependencies>
-    <!-- Java EE 7 dependency -->
-<!--    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>7.0</version>
-      <scope>provided</scope>
-    </dependency>-->
     <!-- WildFly Swarm Fractions -->
     <dependency>
       <groupId>org.wildfly.swarm</groupId>
