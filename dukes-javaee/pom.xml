@@ -102,5 +102,30 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>tomee</id>
+            <build>            
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.4.13</version>
+                        <configuration>
+                            <serverId>docker-hub</serverId>
+                            <imageName>ivargrimstad/${project.artifactId}:tomee</imageName>
+                            <baseImage>tomee:8-jre-1.7.4-jaxrs</baseImage>
+                            <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                            <resources>
+                                <resource>
+                                    <targetPath>//usr/local/tomee/webapps/</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${project.build.finalName}.war</include>
+                                </resource>
+                            </resources>   
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
