@@ -36,6 +36,6 @@ public class HelloResource {
    
    @GET
    public Response greet() {
-      return Response.ok("from JavaEE Micro").build();
+      return Response.ok("from JavaEE!!!").build();
    }
 }
