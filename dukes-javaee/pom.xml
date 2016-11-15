@@ -117,7 +117,7 @@
                             <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
                             <resources>
                                 <resource>
-                                    <targetPath>//usr/local/tomee/webapps/</targetPath>
+                                    <targetPath>/usr/local/tomee/webapps/</targetPath>
                                     <directory>${project.build.directory}</directory>
                                     <include>${project.build.finalName}.war</include>
                                 </resource>
