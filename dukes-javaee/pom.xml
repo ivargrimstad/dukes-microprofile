@@ -21,11 +21,6 @@
       <version>7.0</version>  
       <scope>provided</scope> 
     </dependency>  
-    <dependency> 
-      <groupId>org.jetbrains.kotlin</groupId>  
-      <artifactId>kotlin-stdlib</artifactId>  
-      <version>1.0.4</version> 
-    </dependency> 
   </dependencies>  
   <profiles> 
     <profile> 
@@ -64,7 +59,7 @@
             <configuration> 
               <serverId>docker-hub</serverId>  
               <imageName>ivargrimstad/${project.artifactId}:liberty</imageName>  
-              <baseImage>websphere-liberty:javaee7</baseImage>  
+              <baseImage>websphere-liberty:webProfile7</baseImage>  
               <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
               <resources> 
                 <resource> 
@@ -89,7 +84,7 @@
             <configuration> 
               <serverId>docker-hub</serverId>  
               <imageName>ivargrimstad/${project.artifactId}:payara</imageName>  
-              <baseImage>payara/server-web:163</baseImage>  
+              <baseImage>payara/server-web:164</baseImage>  
               <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
               <resources> 
                 <resource> 
@@ -130,29 +125,4 @@
       </build> 
     </profile> 
   </profiles>  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>1.0.4</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>process-test-sources</phase>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
