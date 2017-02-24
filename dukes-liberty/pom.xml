@@ -6,6 +6,7 @@
   <artifactId>dukes-liberty</artifactId>  
   <version>1.0-SNAPSHOT</version>  
   <packaging>pom</packaging>  
+  
   <licenses> 
     <license> 
       <name>The Apache Software License, Version 2.0</name>  
@@ -13,11 +14,13 @@
       <distribution>repo</distribution> 
     </license> 
   </licenses>  
+  
   <scm> 
     <connection>scm:git:git@github.com:WASdev/tool.accelerate.core.git</connection>  
     <developerConnection>scm:git@github.com:WASdev/tool.accelerate.core.git</developerConnection>  
     <url>git@github.com:WASdev/tool.accelerate.core.git</url> 
   </scm>  
+  
   <properties> 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
@@ -47,6 +50,7 @@
     <cf.host>${app.name}</cf.host>  
     <app.name>dukes-liberty</app.name> 
   </properties>  
+  
   <repositories> 
     <repository> 
       <id>liberty-starter-maven-repo</id>  
@@ -54,11 +58,13 @@
       <url>http://liberty-app-accelerator.wasdev.developer.ibm.com/start/api/v1/repo</url> 
     </repository> 
   </repositories>  
+  
   <modules> 
     <module>dukes-liberty-application</module>  
     <module>dukes-liberty-deploy</module>  
     <module>dukes-liberty-wlpcfg</module> 
   </modules>  
+  
   <profiles> 
     <profile> 
       <id>localServer</id>  
@@ -83,6 +89,7 @@
       </properties> 
     </profile> 
   </profiles>  
+  
   <dependencies> 
     <dependency> 
       <groupId>net.wasdev.wlp.starters.microprofile</groupId>  
@@ -99,6 +106,7 @@
       <scope>runtime</scope> 
     </dependency>  
   </dependencies>  
+  
   <build> 
     <pluginManagement> 
       <plugins> 
