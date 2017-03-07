@@ -1,135 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>eu.agilejava</groupId>
+    <artifactId>dukes-javaee</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-    <modelVersion>4.0.0</modelVersion>  
-    <groupId>eu.agilejava</groupId>  
-    <artifactId>dukes-javaee</artifactId>  
-    <version>1.0.0-SNAPSHOT</version>  
-    <packaging>war</packaging>  
-    
-    <name>Duke's JavaEE Microservice</name> 
-     
-    <properties> 
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-        <maven.compiler.source>1.8</maven.compiler.source>  
-        <maven.compiler.target>1.8</maven.compiler.target>  
-        <failOnMissingWebXml>false</failOnMissingWebXml>  
-        <netbeans.hint.license>mit</netbeans.hint.license> 
-    </properties>  
-    
-    <dependencies> 
-        <dependency> 
-            <groupId>javax</groupId>  
-            <artifactId>javaee-web-api</artifactId>  
-            <version>7.0</version>  
-            <scope>provided</scope> 
-        </dependency>  
-    </dependencies>  
-    
-    <profiles> 
-        <profile> 
-            <id>wildfly</id>  
-            <build> 
-                <plugins> 
-                    <plugin> 
-                        <groupId>com.spotify</groupId>  
-                        <artifactId>docker-maven-plugin</artifactId>  
-                        <version>0.4.13</version>  
-                        <configuration> 
-                            <serverId>docker-hub</serverId>  
-                            <imageName>ivargrimstad/${project.artifactId}:wildfly</imageName>  
-                            <baseImage>jboss/wildfly:10.1.0.Final</baseImage>  
-                            <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
-                            <resources> 
-                                <resource> 
-                                    <targetPath>/opt/jboss/wildfly/standalone/deployments/</targetPath>  
-                                    <directory>${project.build.directory}</directory>  
-                                    <include>${project.build.finalName}.war</include> 
-                                </resource> 
-                            </resources> 
-                        </configuration> 
-                    </plugin> 
-                </plugins> 
-            </build> 
-        </profile>  
+    <name>Duke's JavaEE Microservice</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <netbeans.hint.license>mit</netbeans.hint.license>
+        <version.docker-maven-plugin>0.20.0</version.docker-maven-plugin>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>liberty</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>liberty</alias>
+                                    <name>ivargrimstad/${project.artifactId}:liberty</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>websphere-liberty:javaee7</from>
+                                        <assembly>
+                                            <basedir>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</basedir>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8081:9080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         
-        <profile> 
-            <id>liberty</id>  
-            <build> 
-                <plugins> 
-                    <plugin> 
-                        <groupId>com.spotify</groupId>  
-                        <artifactId>docker-maven-plugin</artifactId>  
-                        <version>0.4.13</version>  
-                        <configuration> 
-                            <serverId>docker-hub</serverId>  
-                            <imageName>ivargrimstad/${project.artifactId}:liberty</imageName>  
-                            <baseImage>websphere-liberty:webProfile7</baseImage>  
-                            <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
-                            <resources> 
-                                <resource> 
-                                    <targetPath>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</targetPath>  
-                                    <directory>${project.build.directory}</directory>  
-                                    <include>${project.build.finalName}.war</include> 
-                                </resource> 
-                            </resources> 
-                        </configuration> 
-                    </plugin> 
-                </plugins> 
-            </build> 
-        </profile> 
+        <profile>
+            <id>payara</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>payara</alias>
+                                    <name>ivargrimstad/${project.artifactId}:payara</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>payara/server-web:163</from>
+                                        <assembly>
+                                            <basedir>/opt/payara41/glassfish/domains/domain1/autodeploy/</basedir>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                        <entryPoint>
+                                            <arg>/opt/payara41/bin/asadmin</arg>
+                                            <arg>start-domain</arg>
+                                            <arg>-v</arg>
+                                        </entryPoint>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8082:8080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>wildfly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>wildfly</alias>
+                                    <name>ivargrimstad/${project.artifactId}:wildfly</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>jboss/wildfly:10.1.0.Final</from>
+                                        <assembly>
+                                            <!-- basedir is the target dir to where to install within the container -->
+                                            <basedir>/opt/jboss/wildfly/standalone/deployments/</basedir>
+                                            <!-- Predefined assembly descriptors can be used for simple use cases.
+                                            In this example, simply the war is included.
+                                            See build-predefined-assembly-descriptors for more examples.
+                                            Unfortunately, there is not yet a predefined descriptor which
+                                            includes arbitrary files within a default directoy. I will add
+                                            this later. For the moment the best way is to include an <inline>
+                                            assembly as described in https://dmp.fabric8.io/#build-assembly -->
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <!-- Call 'mvn docker:run -Pliberty' to fire up the container at port 9080
+                                    See https://dmp.fabric8.io/#start-port-mapping for more options,
+                                    e.g. for how to randomly choose a port and bind it to a Maven property -->
+                                    <run>
+                                        <ports>
+                                            <port>8083:8080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         
-        <profile> 
-            <id>payara</id>  
-            <build> 
-                <plugins> 
-                    <plugin> 
-                        <groupId>com.spotify</groupId>  
-                        <artifactId>docker-maven-plugin</artifactId>  
-                        <version>0.4.13</version>  
-                        <configuration> 
-                            <serverId>docker-hub</serverId>  
-                            <imageName>ivargrimstad/${project.artifactId}:payara</imageName>  
-                            <baseImage>payara/server-web:164</baseImage>  
-                            <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
-                            <resources> 
-                                <resource> 
-                                    <targetPath>/opt/payara41/glassfish/domains/domain1/autodeploy/</targetPath>  
-                                    <directory>${project.build.directory}</directory>  
-                                    <include>${project.build.finalName}.war</include> 
-                                </resource> 
-                            </resources>  
-                            <entryPoint>["/opt/payara41/bin/asadmin", "start-domain", "-v"]</entryPoint> 
-                        </configuration> 
-                    </plugin> 
-                </plugins> 
-            </build> 
-        </profile>  
-        
-        <profile> 
-            <id>tomee</id>  
-            <build> 
-                <plugins> 
-                    <plugin> 
-                        <groupId>com.spotify</groupId>  
-                        <artifactId>docker-maven-plugin</artifactId>  
-                        <version>0.4.13</version>  
-                        <configuration> 
-                            <serverId>docker-hub</serverId>  
-                            <imageName>ivargrimstad/${project.artifactId}:tomee</imageName>  
-                            <baseImage>tomee:8-jre-1.7.4-jaxrs</baseImage>  
-                            <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>  
-                            <resources> 
-                                <resource> 
-                                    <targetPath>/usr/local/tomee/webapps/</targetPath>  
-                                    <directory>${project.build.directory}</directory>  
-                                    <include>${project.build.finalName}.war</include> 
-                                </resource> 
-                            </resources> 
-                        </configuration> 
-                    </plugin> 
-                </plugins> 
-            </build> 
-        </profile> 
-    </profiles>  
+        <profile>
+            <id>tomee</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>tomee</alias>
+                                    <name>ivargrimstad/${project.artifactId}:tomee</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>tomee:8-jre-1.7.4-jaxrs</from>
+                                        <assembly>
+                                            <basedir>/usr/local/tomee/webapps/</basedir>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8084:8080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
