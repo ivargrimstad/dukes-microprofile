@@ -36,6 +36,6 @@ public class HelloResource {
    
    @GET
    public Response greet() {
-      return Response.ok("from WildFly Swarm").build();
+      return Response.ok("Hallo Welt! ...from WildFly Swarm").build();
    }
 }
