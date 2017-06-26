@@ -1,41 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-  <modelVersion>4.0.0</modelVersion>  
-  <groupId>eu.agilejava</groupId>  
-  <artifactId>dukes-tomee</artifactId>  
-  <version>1.0.0-SNAPSHOT</version>  
-  <packaging>war</packaging>  
+    <modelVersion>4.0.0</modelVersion>  
+    <groupId>eu.agilejava</groupId>  
+    <artifactId>dukes-tomee</artifactId>  
+    <version>1.0.0-SNAPSHOT</version>  
+    <packaging>war</packaging>  
   
-  <name>Duke's Tomee Microservice</name>  
+    <name>Duke's Tomee Microservice</name>  
   
-  <properties> 
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-    <maven.compiler.source>1.8</maven.compiler.source>  
-    <maven.compiler.target>1.8</maven.compiler.target>  
-    <failOnMissingWebXml>false</failOnMissingWebXml>  
-    <netbeans.hint.license>mit</netbeans.hint.license> 
-  </properties>  
+    <properties> 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+        <maven.compiler.source>1.8</maven.compiler.source>  
+        <maven.compiler.target>1.8</maven.compiler.target>  
+        <failOnMissingWebXml>false</failOnMissingWebXml>  
+        <netbeans.hint.license>mit</netbeans.hint.license> 
+        <version.docker-maven-plugin>0.20.0</version.docker-maven-plugin>
+
+    </properties>  
   
-  <dependencies> 
-    <dependency> 
-      <groupId>org.apache.tomee</groupId>  
-      <artifactId>javaee-api</artifactId>  
-      <version>7.0</version>  
-      <scope>provided</scope> 
-    </dependency>  
-  </dependencies>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.apache.tomee</groupId>  
+            <artifactId>javaee-api</artifactId>  
+            <version>7.0</version>  
+            <scope>provided</scope> 
+        </dependency>  
+    </dependencies>  
   
-  <build> 
-    <plugins> 
-      <plugin> 
-        <groupId>org.apache.openejb.maven</groupId>  
-        <artifactId>tomee-maven-plugin</artifactId>  
-        <version>1.7.4</version>  
-        <configuration> 
-          <tomeeClassifier>jaxrs</tomeeClassifier> 
-        </configuration> 
-      </plugin>  
-    </plugins> 
-  </build> 
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.apache.openejb.maven</groupId>  
+                <artifactId>tomee-maven-plugin</artifactId>  
+                <version>1.7.4</version>  
+                <configuration> 
+                    <tomeeClassifier>jaxrs</tomeeClassifier> 
+                </configuration> 
+            </plugin>  
+        </plugins> 
+    </build> 
+    
+    <profiles>
+        <profile>
+            <id>tomee-micro</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>tomee</alias>
+                                    <name>ivargrimstad/${project.artifactId}:tomee-micro</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>tomee:8-jre-1.7.4-jaxrs</from>
+                                        <assembly>
+                                            <basedir>/usr/local/tomee/webapps/</basedir>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8094:8080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

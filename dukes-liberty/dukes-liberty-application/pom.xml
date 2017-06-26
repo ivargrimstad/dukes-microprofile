@@ -17,6 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <version.docker-maven-plugin>0.20.0</version.docker-maven-plugin>
     </properties> 
 
     <build>
@@ -41,4 +42,40 @@
             </plugin>
         </plugins>
     </build>   
+    
+    <profiles>
+           <profile>
+            <id>liberty-micro</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>liberty-micro</alias>
+                                    <name>ivargrimstad/${project.artifactId}:liberty-micro</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>websphere-liberty:microProfile</from>
+                                        <assembly>
+                                            <basedir>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</basedir>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8091:9080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

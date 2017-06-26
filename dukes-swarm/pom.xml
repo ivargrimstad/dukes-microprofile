@@ -15,6 +15,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>  
         <failOnMissingWebXml>false</failOnMissingWebXml>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+        <version.docker-maven-plugin>0.20.0</version.docker-maven-plugin>
     </properties>  
   
     <dependencyManagement> 
@@ -54,5 +55,53 @@
             </plugin>  
         </plugins> 
     </build>  
+    
+    <profiles>
+        <profile>
+            <id>swarm-micro</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${version.docker-maven-plugin}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>swarm-micro</alias>
+                                    <name>ivargrimstad/${project.artifactId}:swarm-micro</name>
+                                    <build>
+                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                        <from>jboss/base-jdk:8</from>
+                                        <assembly>
+                                            <basedir>/opt</basedir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>${basedir}/target/${project.build.finalName}-swarm.jar</source>
+                                                    </file>
+                                                </files>
+                                            </inline>                                   
+                                        </assembly>                                                                             
+                                        <entryPoint>
+                                            <arg>java</arg>
+                                            <arg>-jar</arg>
+                                            <arg>/opt/${project.build.finalName}-swarm.jar</arg>  
+                                        </entryPoint>
+                                    </build>
+                                    <run>
+                                        <ports>
+                                            <port>8093:8080</port>
+                                        </ports>
+                                    </run>
+                                </image>
+
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     
 </project>
