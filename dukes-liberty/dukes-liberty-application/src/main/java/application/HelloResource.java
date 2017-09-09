@@ -36,6 +36,6 @@ public class HelloResource {
    
    @GET
    public Response greet() {
-      return Response.ok("Hallo Welt! ...from Liberty Micro").build();
+      return Response.ok("Hello World! ...from Liberty Micro").build();
    }
 }
