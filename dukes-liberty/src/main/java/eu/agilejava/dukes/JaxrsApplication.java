@@ -1,9 +1,9 @@
-package application.rest;
+package eu.agilejava.dukes;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/rest")
+@ApplicationPath("/api")
 public class JaxrsApplication extends Application {
 
 }

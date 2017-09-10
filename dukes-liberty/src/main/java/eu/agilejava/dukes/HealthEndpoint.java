@@ -1,4 +1,4 @@
-package application.rest;
+package eu.agilejava.dukes;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
