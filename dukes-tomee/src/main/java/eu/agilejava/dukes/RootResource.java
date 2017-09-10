@@ -21,25 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.agilejava.snoop;
+package eu.agilejava.dukes;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
-@ApplicationPath("api")
-public class ApplicationConfig extends Application {
-
-   @Override
-   public Set<Class<?>> getClasses() {
-      Set<Class<?>> resources = new HashSet<>();
-      resources.add(RootResource.class);
-      resources.add(HelloResource.class);
-      return resources;
-   }
+@Path("/")
+public class RootResource {
+   
+   @GET
+   public Response info() {
+      return Response.ok("Welcome to the Hello Tomee Micro Service!").build();
+   }  
 }
