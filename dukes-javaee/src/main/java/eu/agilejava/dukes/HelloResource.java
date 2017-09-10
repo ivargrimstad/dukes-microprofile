@@ -21,4 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.agilejava.snoop;
+package eu.agilejava.dukes;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+/**
+ *
+ * @author Ivar Grimstad (ivar.grimstad@gmail.com)
+ */
+@Path("hello")
+public class HelloResource {
+   
+   @GET
+   public Response greet() {
+      return Response.ok("Hello World! ...from JavaEE!!").build();
+   }
+}
