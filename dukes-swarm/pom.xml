@@ -31,6 +31,15 @@
     </dependencyManagement>  
   
     <dependencies> 
+
+        <dependency>
+            <groupId>io.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>1.0.0</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>    
+    
         <!-- WildFly Swarm Fractions -->  
         <dependency> 
             <groupId>org.wildfly.swarm</groupId>  
