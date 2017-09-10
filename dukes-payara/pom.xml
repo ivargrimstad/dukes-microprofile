@@ -15,7 +15,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>  
         <failOnMissingWebXml>false</failOnMissingWebXml>  
         <netbeans.hint.license>mit</netbeans.hint.license> 
-        <version.docker-maven-plugin>0.20.0</version.docker-maven-plugin>
+        <version.docker-maven-plugin>0.22.1</version.docker-maven-plugin>
     </properties>  
   
     <dependencies> 
