@@ -20,12 +20,18 @@
   
     <dependencies> 
         <dependency>
-            <groupId>io.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile-bom</artifactId>
+            <version>1.1.0</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency>   
+        <!-- need this for running with payara microprofile 1.0-->     
+<!--        <dependency>
+            <groupId>org.apache.geronimo.config</groupId>
+            <artifactId>geronimo-config-impl</artifactId>
+            <version>1.1-SNAPSHOT-weld</version>
+        </dependency>-->
     </dependencies>  
   
     <build> 
@@ -67,7 +73,8 @@
                 </executions> 
             </plugin>  
         </plugins> 
-    </build> 
+    </build>        
+      
     <profiles>
         <profile>
             <id>payara-micro</id>
@@ -84,18 +91,18 @@
                                     <name>ivargrimstad/${project.artifactId}:payara-micro</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/microprofile</from>
+                                        <from>payara/micro:173</from>
                                         <assembly>
-                                            <basedir>/opt/payara/</basedir>
+                                            <basedir>/opt/payara/deployments</basedir>
                                             <descriptorRef>artifact</descriptorRef>
                                         </assembly>
                                         <entryPoint>
                                             <arg>java</arg>
                                             <arg>-jar</arg>
-                                            <arg>/opt/payara/payara-microprofile.jar</arg>
-                                            <arg>--deploy</arg>  
-                                            <arg>/opt/payara/${project.build.finalName}.war</arg>  
-                                        </entryPoint>
+                                            <arg>/opt/payara/payara-micro.jar</arg>
+                                            <arg>--deploymentDir</arg>  
+                                            <arg>/opt/payara/deployments</arg>  
+                                        </entryPoint>     
                                     </build>
                                     <run>
                                         <ports>
@@ -103,7 +110,6 @@
                                         </ports>
                                     </run>
                                 </image>
-
                             </images>
                         </configuration>
                     </plugin>

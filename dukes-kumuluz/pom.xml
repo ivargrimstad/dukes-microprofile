@@ -8,7 +8,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Duke's Kumuluz Microservice</name>
+    <name>Duke's KumuluzEE Microservice</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

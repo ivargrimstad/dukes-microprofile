@@ -23,6 +23,7 @@
  */
 package eu.agilejava.dukes;
 
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -32,10 +33,15 @@ import javax.ws.rs.core.Response;
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
 @Path("hello")
+@RequestScoped
 public class HelloResource {
-   
-   @GET
-   public Response greet() {
-      return Response.ok("Hello World! ...from Tomee Micro").build();
-   }
+
+//    @Inject
+//    @ConfigProperty(name="place", defaultValue = "World")
+//    private String place;
+            
+    @GET
+    public Response greet() {
+        return Response.ok("Hello World! ...from Tomee Micro").build();
+    }
 }

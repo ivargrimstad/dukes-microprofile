@@ -23,19 +23,27 @@
  */
 package eu.agilejava.dukes;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
  *
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
 @Path("hello")
+@RequestScoped
 public class HelloResource {
-   
-   @GET
-   public Response greet() {
-      return Response.ok("Hello World! ...from Payara Micro").build();
-   }
+
+    @Inject
+    @ConfigProperty(name = "place", defaultValue = "Oslo")
+    private String place;
+
+    @GET
+    public Response greet() {
+        return Response.ok("Hello " + place + "! ...from Payara Micro").build();
+    }
 }

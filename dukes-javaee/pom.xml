@@ -19,10 +19,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile-bom</artifactId>
+            <version>1.1.0</version>
+            <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.geronimo.config</groupId>
+            <artifactId>geronimo-config-impl</artifactId>
+            <version>1.1-SNAPSHOT-weld</version>
         </dependency>
     </dependencies>
 
@@ -119,21 +126,10 @@
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
                                         <from>jboss/wildfly:10.1.0.Final</from>
                                         <assembly>
-                                            <!-- basedir is the target dir to where to install within the container -->
                                             <basedir>/opt/jboss/wildfly/standalone/deployments/</basedir>
-                                            <!-- Predefined assembly descriptors can be used for simple use cases.
-                                            In this example, simply the war is included.
-                                            See build-predefined-assembly-descriptors for more examples.
-                                            Unfortunately, there is not yet a predefined descriptor which
-                                            includes arbitrary files within a default directoy. I will add
-                                            this later. For the moment the best way is to include an <inline>
-                                            assembly as described in https://dmp.fabric8.io/#build-assembly -->
                                             <descriptorRef>artifact</descriptorRef>
                                         </assembly>
                                     </build>
-                                    <!-- Call 'mvn docker:run -Pliberty' to fire up the container at port 9080
-                                    See https://dmp.fabric8.io/#start-port-mapping for more options,
-                                    e.g. for how to randomly choose a port and bind it to a Maven property -->
                                     <run>
                                         <ports>
                                             <port>8083:8080</port>
