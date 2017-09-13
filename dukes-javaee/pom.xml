@@ -19,17 +19,22 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
-            <type>pom</type>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <version>1.1</version>
         </dependency>
         
         <dependency>
             <groupId>org.apache.geronimo.config</groupId>
             <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1-SNAPSHOT-weld</version>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -84,7 +89,7 @@
                                     <name>ivargrimstad/${project.artifactId}:payara</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/server-web:173</from>
+                                        <from>payara/server-web:163</from>
                                         <assembly>
                                             <basedir>/opt/payara41/glassfish/domains/domain1/autodeploy/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
@@ -158,7 +163,7 @@
                                     <name>ivargrimstad/${project.artifactId}:tomee</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>tomee:8-jre-1.7.4-jaxrs</from>
+                                        <from>tomee:8-jre-7.0.3-webprofile</from>
                                         <assembly>
                                             <basedir>/usr/local/tomee/webapps/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
