@@ -33,7 +33,6 @@ import javax.ws.rs.core.Response;
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
 @Path("hello")
-@RequestScoped
 public class HelloResource {
 
     @GET
