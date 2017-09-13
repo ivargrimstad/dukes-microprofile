@@ -39,7 +39,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class HelloResource {
 
     @Inject
-    @ConfigProperty(name = "place", defaultValue = "Oslo")
+    @ConfigProperty(name = "place", defaultValue = "World")
     private String place;
 
     @GET
