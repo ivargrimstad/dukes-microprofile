@@ -25,9 +25,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
+            <groupId>io.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>1.0.0</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>    
@@ -225,52 +225,6 @@
                 </plugins>
             </build>
         </profile>
-        
-        <profile>
-            <id>liberty-micro</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>liberty-micro</alias>
-                                    <name>ivargrimstad/${project.artifactId}:liberty-micro</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>websphere-liberty:beta</from>
-                                        <assembly>
-                                            <basedir>/opt/ibm/wlp/usr/servers</basedir>
-                                            <inline>
-                                                <files>
-                                                    <file>
-                                                        <source>${basedir}/target/${project.build.finalName}.war</source>
-                                                        <outputDirectory>defaultServer/dropins</outputDirectory>
-                                                    </file>
-                                                    <file>
-                                                        <source>${basedir}/src/main/liberty/config/server.xml</source>
-                                                        <outputDirectory>defaultServer</outputDirectory>
-                                                    </file>
-                                                </files>
-                                            </inline>                                   
-                                        </assembly>                                         
-                                        
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8081:9080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        
+                
     </profiles>
 </project>

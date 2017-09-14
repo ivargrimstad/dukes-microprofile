@@ -33,22 +33,17 @@
     <dependencies> 
 
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
+            <groupId>io.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>1.0.0</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency>    
         
         <!-- WildFly Swarm Fractions -->  
         <dependency> 
             <groupId>org.wildfly.swarm</groupId>  
             <artifactId>microprofile</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.wildfly.swarm</groupId>  
-            <artifactId>microprofile-config</artifactId> 
-            <version>1.0.1</version>
         </dependency>  
     </dependencies> 
 
@@ -69,53 +64,5 @@
             </plugin>  
         </plugins> 
     </build>  
-    
-    <profiles>
-        <profile>
-            <id>swarm-micro</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>swarm-micro</alias>
-                                    <name>ivargrimstad/${project.artifactId}:swarm-micro</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>jboss/base-jdk:8</from>
-                                        <assembly>
-                                            <basedir>/opt</basedir>
-                                            <inline>
-                                                <files>
-                                                    <file>
-                                                        <source>${basedir}/target/${project.build.finalName}-swarm.jar</source>
-                                                    </file>
-                                                </files>
-                                            </inline>                                   
-                                        </assembly>                                                                             
-                                        <entryPoint>
-                                            <arg>java</arg>
-                                            <arg>-jar</arg>
-                                            <arg>/opt/${project.build.finalName}-swarm.jar</arg>  
-                                        </entryPoint>
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8093:8080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     
 </project>

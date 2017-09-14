@@ -20,18 +20,12 @@
   
     <dependencies> 
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
+            <groupId>io.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>1.0.0</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency>   
-        <!-- need this for running with payara microprofile 1.0-->     
-<!--        <dependency>
-            <groupId>org.apache.geronimo.config</groupId>
-            <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>-->
+        </dependency>    
     </dependencies>  
   
     <build> 
@@ -74,47 +68,5 @@
             </plugin>  
         </plugins> 
     </build>        
-      
-    <profiles>
-        <profile>
-            <id>payara-micro</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>payara-micro</alias>
-                                    <name>ivargrimstad/${project.artifactId}:payara-micro</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/micro:173</from>
-                                        <assembly>
-                                            <basedir>/opt/payara/deployments</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
-                                        </assembly>
-                                        <entryPoint>
-                                            <arg>java</arg>
-                                            <arg>-jar</arg>
-                                            <arg>/opt/payara/payara-micro.jar</arg>
-                                            <arg>--deploymentDir</arg>  
-                                            <arg>/opt/payara/deployments</arg>  
-                                        </entryPoint>     
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8092:8080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+
 </project>
