@@ -261,7 +261,7 @@
                                     </build>
                                     <run>
                                         <ports>
-                                            <port>8081:9080</port>
+                                            <port>9080:9080</port>
                                         </ports>
                                     </run>
                                 </image>
