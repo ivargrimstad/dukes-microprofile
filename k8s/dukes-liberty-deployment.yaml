@@ -20,10 +20,9 @@ spec:
       containers:
       - name: dukes-liberty
         image: ivargrimstad/dukes-liberty:liberty-micro
-        readynessProbe:
-          httpGet:
-            path: /
-            port: 9080
+        env:
+        - name: place
+          value: Passion
         ports:
         - name: http
           containerPort: 9080
