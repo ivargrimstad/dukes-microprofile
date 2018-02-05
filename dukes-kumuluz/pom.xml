@@ -14,9 +14,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kumuluz.version>2.4.0</kumuluz.version>
+        <kumuluz.version>2.5.2</kumuluz.version>
         <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
-        <version.docker-maven-plugin>0.22.1</version.docker-maven-plugin>
+        <version.docker-maven-plugin>0.23.0</version.docker-maven-plugin>
     </properties>
 
     <dependencyManagement>
@@ -34,7 +34,7 @@
     <dependencies>
         <dependency>
             <groupId>com.kumuluz.ee</groupId>
-            <artifactId>kumuluzee-microProfile-1.0</artifactId>
+            <artifactId>kumuluzee-microProfile-1.2</artifactId>
         </dependency>
     </dependencies>
 
@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>com.kumuluz.ee</groupId>
                 <artifactId>kumuluzee-maven-plugin</artifactId>
-                <version>2.4.0</version>
+                <version>${kumuluz.version}</version>
                 <executions>
                     <execution>
                         <id>package</id>

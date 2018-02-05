@@ -36,6 +36,6 @@ public class RootResource {
    
    @GET
    public Response info() {
-      return Response.ok("Welcome to the Hello Payara Micro Service!").build();
+      return Response.ok("Welcome to the Hello Kumuluz Microservice!").build();
    }  
 }
