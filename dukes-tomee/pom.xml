@@ -15,7 +15,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>  
         <failOnMissingWebXml>false</failOnMissingWebXml>  
         <netbeans.hint.license>mit</netbeans.hint.license> 
-        <version.docker-maven-plugin>0.22.1</version.docker-maven-plugin>
+        <version.docker-maven-plugin>0.23.0</version.docker-maven-plugin>
 
     </properties>  
   
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.apache.geronimo.config</groupId>
             <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>  
   
@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>7.0.3</version>
+                <version>7.0.4</version>
                 <configuration>
                     <warFile>${project.build.directory}/${project.build.finalName}.war</warFile>
                     <tomeeClassifier>webprofile</tomeeClassifier>
@@ -73,7 +73,7 @@
                                     <name>ivargrimstad/${project.artifactId}:tomee-micro</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>tomee:8-jre-7.0.3-webprofile</from>
+                                        <from>tomee:8-jre-7.0.4-webprofile</from>
                                         <assembly>
                                             <basedir>/usr/local/tomee/webapps/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
