@@ -21,60 +21,34 @@
     <dependencies> 
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
+            <artifactId>microprofile</artifactId>
+            <version>1.2</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>   
-        <!-- need this for running with payara microprofile 1.0-->     
-<!--        <dependency>
-            <groupId>org.apache.geronimo.config</groupId>
-            <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>-->
     </dependencies>  
   
-    <build> 
-        <plugins> 
-            <plugin> 
-                <groupId>org.codehaus.mojo</groupId>  
-                <artifactId>exec-maven-plugin</artifactId>  
-                <version>1.5.0</version>  
-                <dependencies> 
-                    <dependency> 
-                        <groupId>fish.payara.extras</groupId>  
-                        <artifactId>payara-microprofile</artifactId>  
-                        <version>1.0</version> 
-                    </dependency> 
-                </dependencies>  
-                <executions> 
-                    <execution> 
-                        <id>payara-uber-jar</id>  
-                        <phase>package</phase>  
-                        <goals> 
-                            <goal>java</goal> 
-                        </goals>  
-                        <configuration> 
-                            <mainClass>fish.payara.micro.PayaraMicro</mainClass>  
-                            <arguments> 
-                                <argument>--deploy</argument>  
-                                <argument>${basedir}/target/${project.build.finalName}.war</argument>  
-                                <argument>--outputUberJar</argument>  
-                                <argument>${basedir}/target/${project.build.finalName}.jar</argument> 
-                            </arguments>  
-                            <includeProjectDependencies>false</includeProjectDependencies>  
-                            <includePluginDependencies>true</includePluginDependencies>  
-                            <executableDependency> 
-                                <groupId>fish.payara.extras</groupId>  
-                                <artifactId>payara-microprofile</artifactId> 
-                            </executableDependency> 
-                        </configuration> 
-                    </execution> 
-                </executions> 
-            </plugin>  
-        </plugins> 
-    </build>        
-      
+  
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <payaraVersion>5.0.0.Alpha3</payaraVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>payara-micro</id>
@@ -91,7 +65,7 @@
                                     <name>ivargrimstad/${project.artifactId}:payara-micro</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/micro:173</from>
+                                        <from>payara/micro:174</from>
                                         <assembly>
                                             <basedir>/opt/payara/deployments</basedir>
                                             <descriptorRef>artifact</descriptorRef>
