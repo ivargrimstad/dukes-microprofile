@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dukes-swarm
+  labels:
+    app: dukes-swarm
+    visualize: "true"
+spec:
+  type: LoadBalancer
+  ports: 
+    - port: 80
+      targetPort: http
+  selector:
+    app: dukes-swarm
