@@ -29,6 +29,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 
 /**
  *
@@ -42,6 +43,7 @@ public class HelloResource {
     @ConfigProperty(name = "place", defaultValue = "World")
     private String place;
 
+    @Metered
     @GET
     public Response greet() {
         return Response.ok("Hello " + place + "! ...from Payara Micro").build();
