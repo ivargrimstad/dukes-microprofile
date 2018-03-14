@@ -31,11 +31,31 @@ scrape_configs:
   - job_name: 'demo-app'
     metrics_path: '/metrics/application'
     static_configs:
-      - targets: ['10.61.2.68:8080', '10.61.2.68:8081']
+      - targets: ['10.42.166.165:8080', '10.42.166.165:8081']
 
   - job_name: 'demo'
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['10.61.2.68:8080', '10.61.2.68:8081']
-
+      - targets: ['10.42.166.165:8080', '10.42.166.165:8081']
+  
+  - job_name: 'liberty'
+    scheme: https
+    basic_auth:
+      username: 'duke'
+      password: 'duke'
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['10.42.166.165:9443']  
+      
+  - job_name: 'liberty-app'
+    scheme: https
+    metrics_path: '/metrics/application'
+    basic_auth:
+      username: 'duke'
+      password: 'duke'
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['10.42.166.165:9443']  
 
