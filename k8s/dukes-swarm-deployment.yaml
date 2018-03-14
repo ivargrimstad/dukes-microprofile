@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dukes-swarm
+  labels:
+    app: dukes-swarm
+    visualize: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dukes-swarm
+  template:
+    metadata:
+      labels:
+        app: dukes-swarm
+        version: "v1"
+        vusualize: "true"
+    spec:
+      containers:
+      - name: dukes-swarm
+        image: ivargrimstad/dukes-swarm:swarm-micro
+        ports:
+        - name: http
+          containerPort: 8080
