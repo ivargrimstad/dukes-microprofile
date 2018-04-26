@@ -10,7 +10,7 @@
     <name>Duke's Swarm Microservice</name>  
   
     <properties> 
-        <version.wildfly.swarm>2018.1.0</version.wildfly.swarm>
+        <version.wildfly.swarm>2018.4.1</version.wildfly.swarm>
         <maven.compiler.source>1.8</maven.compiler.source>  
         <maven.compiler.target>1.8</maven.compiler.target>  
         <failOnMissingWebXml>false</failOnMissingWebXml>  
@@ -62,7 +62,7 @@
                     </execution> 
                 </executions> 
                 <configuration>
-                    <hollow>true</hollow>
+                    <hollow>false</hollow>
                 </configuration>
             </plugin>  
         </plugins> 
