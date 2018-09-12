@@ -1,0 +1,34 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${project.artifactId}
+  labels:
+    app: ${project.artifactId}
+spec:
+  type: NodePort
+  selector:
+    app: ${project.artifactId}
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: http
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: ${project.artifactId}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ${project.artifactId}
+        version: v1
+    spec:
+      containers:
+      - name: ${project.artifactId}
+        image: ${project.artifactId}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
