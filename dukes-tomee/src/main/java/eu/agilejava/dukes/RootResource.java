@@ -23,6 +23,7 @@
  */
 package eu.agilejava.dukes;
 
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -31,6 +32,7 @@ import javax.ws.rs.core.Response;
  *
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
+@RequestScoped
 @Path("/")
 public class RootResource {
    

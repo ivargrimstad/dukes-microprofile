@@ -22,28 +22,29 @@
     <dependencies> 
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile-bom</artifactId>
-            <version>1.1.0</version>
+            <artifactId>microprofile</artifactId>
+            <version>1.3</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.apache.geronimo.config</groupId>
-            <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1</version>
-        </dependency>
-    </dependencies>  
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.geronimo.config</groupId>-->
+            <!--<artifactId>geronimo-config-impl</artifactId>-->
+            <!--<version>1.1</version>-->
+        <!--</dependency>-->
+        <!---->
+    </dependencies>
   
     <build> 
         <plugins> 
             <plugin>
                 <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>7.0.4</version>
+                <version>8.0.0-M1</version>
                 <configuration>
-                    <warFile>${project.build.directory}/${project.build.finalName}.war</warFile>
-                    <tomeeClassifier>webprofile</tomeeClassifier>
+                    <!--<warFile>${project.build.directory}/${project.build.finalName}.war</warFile>-->
+                    <tomeeClassifier>microprofile</tomeeClassifier>
                 </configuration>
                 <executions>
                     <execution>
@@ -57,39 +58,4 @@
         </plugins> 
     </build> 
     
-    <profiles>
-        <profile>
-            <id>tomee-micro</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>tomee-micro</alias>
-                                    <name>ivargrimstad/${project.artifactId}:tomee-micro</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>tomee:8-jre-7.0.4-webprofile</from>
-                                        <assembly>
-                                            <basedir>/usr/local/tomee/webapps/</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
-                                        </assembly>
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8094:8080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
