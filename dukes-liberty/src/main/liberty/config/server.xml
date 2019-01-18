@@ -1,13 +1,14 @@
 <server description="Sample Liberty server">
 
     <featureManager>
-        <feature>microprofile-1.2</feature>
+        <feature>microProfile-2.0</feature>
     </featureManager>
 
-    <httpEndpoint httpPort="9080" httpsPort="9443"
-                  id="defaultHttpEndpoint" host="*" />
+    <httpEndpoint  httpPort="9080" httpsPort="9443"
+                   id="defaultHttpEndpoint" host="*" />
 
-    <quickStartSecurity userName="duke" userPassword="duke"/>
-    <keyStore id="defaultKeyStore" password="Liberty"/>
+    <!--<keyStore id="defaultKeyStore" password="Liberty" />-->
+
+    <mpMetrics authentication="false" />
 
 </server>
