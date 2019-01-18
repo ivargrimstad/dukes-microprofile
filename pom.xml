@@ -14,7 +14,7 @@
         <module>dukes-kumuluz</module>
         <module>dukes-liberty</module>
         <module>dukes-payara</module>
-        <module>dukes-swarm</module>
+        <module>dukes-thorntail</module>
         <module>dukes-tomee</module>
         <module>dukes-helidon</module>
   </modules>    

@@ -15,7 +15,7 @@
         <maven.compiler.target>8</maven.compiler.target>  
         <failOnMissingWebXml>false</failOnMissingWebXml>  
         <netbeans.hint.license>mit</netbeans.hint.license> 
-        <version.docker-maven-plugin>0.23.0</version.docker-maven-plugin>
+        <version.docker-maven-plugin>0.28.0</version.docker-maven-plugin>
 
     </properties>  
   
@@ -23,17 +23,11 @@
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>1.3</version>
+            <version>2.0.1</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.apache.geronimo.config</groupId>-->
-            <!--<artifactId>geronimo-config-impl</artifactId>-->
-            <!--<version>1.1</version>-->
-        <!--</dependency>-->
-        <!---->
     </dependencies>
   
     <build> 
@@ -43,7 +37,6 @@
                 <artifactId>tomee-maven-plugin</artifactId>
                 <version>8.0.0-M1</version>
                 <configuration>
-                    <!--<warFile>${project.build.directory}/${project.build.finalName}.war</warFile>-->
                     <tomeeClassifier>microprofile</tomeeClassifier>
                 </configuration>
                 <executions>

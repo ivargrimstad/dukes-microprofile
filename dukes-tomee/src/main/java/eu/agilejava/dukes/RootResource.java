@@ -33,7 +33,7 @@ import javax.ws.rs.core.Response;
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
 @RequestScoped
-@Path("/")
+@Path("")
 public class RootResource {
    
    @GET

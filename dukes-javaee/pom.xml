@@ -10,38 +10,49 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.finalName>dukes-javaee</project.build.finalName>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <netbeans.hint.license>mit</netbeans.hint.license>
-        <version.docker-maven-plugin>0.22.1</version.docker-maven-plugin>
+        <version.docker-maven-plugin>0.28.0</version.docker-maven-plugin>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
-            <version>1.1</version>
+            <version>1.2.1</version>
         </dependency>
         
-        <dependency>
-            <groupId>org.apache.geronimo.config</groupId>
-            <artifactId>geronimo-config-impl</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.geronimo.config</groupId>-->
+            <!--<artifactId>geronimo-config-impl</artifactId>-->
+            <!--<version>1.2.1</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <profiles>
 
         <profile>
-            <id>liberty</id>
+            <id>docker-liberty</id>
+
+            <dependencies>
+                <dependency>
+                    <groupId>io.openliberty.features</groupId>
+                    <artifactId>mpConfig-1.2</artifactId>
+                    <version>18.0.0.4</version>
+                    <type>esa</type>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -55,10 +66,30 @@
                                     <name>ivargrimstad/${project.artifactId}:liberty</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>websphere-liberty:javaee7</from>
+                                        <from>websphere-liberty:javaee8</from>
                                         <assembly>
                                             <basedir>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                        <assembly>
+                                            <permissions>ignore</permissions>
+                                            <basedir>/opt/ibm/wlp/usr/servers/</basedir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>
+                                                            ${project.build.directory}/${project.build.finalName}.war
+                                                        </source>
+                                                        <outputDirectory>/defaultServer/dropins</outputDirectory>
+                                                    </file>
+                                                    <file>
+                                                        <source>
+                                                            ${basedir}/src/main/liberty/config/server.xml
+                                                        </source>
+                                                        <outputDirectory>/defaultServer</outputDirectory>
+                                                    </file>
+                                                </files>
+                                            </inline>
                                         </assembly>
                                     </build>
                                     <run>
@@ -69,13 +100,21 @@
                                 </image>
                             </images>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
         
         <profile>
-            <id>payara</id>
+            <id>docker-payara</id>
             <build>
                 <plugins>
                     <plugin>
@@ -89,13 +128,13 @@
                                     <name>ivargrimstad/${project.artifactId}:payara</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/server-web:163</from>
+                                        <from>payara/server-web:5.183</from>
                                         <assembly>
-                                            <basedir>/opt/payara41/glassfish/domains/domain1/autodeploy/</basedir>
+                                            <basedir>/opt/payara5/glassfish/domains/domain1/autodeploy/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
                                         </assembly>
                                         <entryPoint>
-                                            <arg>/opt/payara41/bin/asadmin</arg>
+                                            <arg>/opt/payara5/bin/asadmin</arg>
                                             <arg>start-domain</arg>
                                             <arg>-v</arg>
                                         </entryPoint>
@@ -106,15 +145,22 @@
                                         </ports>
                                     </run>
                                 </image>
-
                             </images>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>wildfly</id>
+            <id>docker-wildfly</id>
             <build>
                 <plugins>
                     <plugin>
@@ -129,7 +175,7 @@
                                     <name>ivargrimstad/${project.artifactId}:wildfly</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>jboss/wildfly:10.1.0.Final</from>
+                                        <from>jboss/wildfly:15.0.1.Final</from>
                                         <assembly>
                                             <basedir>/opt/jboss/wildfly/standalone/deployments/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
@@ -143,13 +189,21 @@
                                 </image>
                             </images>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
         
         <profile>
-            <id>tomee</id>
+            <id>docker-tomee</id>
             <build>
                 <plugins>
                     <plugin>
@@ -163,7 +217,7 @@
                                     <name>ivargrimstad/${project.artifactId}:tomee</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>tomee:8-jre-7.0.3-webprofile</from>
+                                        <from>tomee:8-jre-8.0.0-M1-webprofile</from>
                                         <assembly>
                                             <basedir>/usr/local/tomee/webapps/</basedir>
                                             <descriptorRef>artifact</descriptorRef>
@@ -177,6 +231,14 @@
                                 </image>
                             </images>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
