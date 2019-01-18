@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <groupId>eu.agilejava</groupId>  
+    <artifactId>dukes-thorntail</artifactId>
+    <version>1.0.0-SNAPSHOT</version>  
+    <packaging>war</packaging>  
+  
+    <name>Duke's Swarm Microservice</name>  
+  
+    <properties>
+        <version.microprofile>2.0.1</version.microprofile>
+        <version.thorntail>2.3.0.Final</version.thorntail>
+        <maven.compiler.source>1.8</maven.compiler.source>  
+        <maven.compiler.target>1.8</maven.compiler.target>  
+        <failOnMissingWebXml>false</failOnMissingWebXml>  
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+        <version.docker-maven-plugin>0.23.0</version.docker-maven-plugin>
+    </properties>  
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.thorntail</groupId>
+                <artifactId>bom</artifactId>
+                <version>${version.thorntail}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>${version.microprofile}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>microprofile</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>dukes-thorntail</finalName>
+        <plugins>
+            <plugin>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${version.thorntail}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <hollow>false</hollow>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${version.docker-maven-plugin}</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>${project.artifactId}-thorntail</alias>
+                            <name>ivargrimstad/${project.artifactId}:thorntail</name>
+                            <build>
+                                <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
+                                <from>jboss/base-jdk:8</from>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>
+                                                    ${project.build.directory}/${project.build.finalName}-thorntail.jar
+                                                </source>
+                                                <outputDirectory>/opt</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                                <entryPoint>
+                                    <arg>java</arg>
+                                    <arg>-Djava.net.preferIPv4Stack=true</arg>
+                                    <arg>-jar</arg>
+                                    <arg>/opt/${project.build.finalName}-thorntail.jar</arg>
+                                </entryPoint>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
