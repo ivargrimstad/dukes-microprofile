@@ -43,6 +43,6 @@ class MainTest {
     }
 
     private String getConnectionString(String path) {
-        return "http://localhost:" + server.getPort() + path;
+        return "http://localhost:" + server.port() + path;
     }
 }
