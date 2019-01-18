@@ -3,7 +3,7 @@ package eu.agilejava.dukes;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("")
+@ApplicationPath("api")
 public class ApplicationConfig extends Application {
 
 }

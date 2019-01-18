@@ -1,7 +1,7 @@
 <server description="Sample Liberty server">
 
     <featureManager>
-        <feature>microProfile-2.0</feature>
+        <feature>microprofile-2.1</feature>
     </featureManager>
 
     <httpEndpoint  httpPort="9080" httpsPort="9443"
