@@ -38,14 +38,13 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
  *
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
-@Path("hello")
+@Path("/hello")
 @RequestScoped
 public class HelloResource {
 
     @Inject
     @ConfigProperty(name = "place", defaultValue = "Sweden")
     private String place;
-
 
     @Metered
     @GET
