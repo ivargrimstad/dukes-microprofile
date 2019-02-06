@@ -32,7 +32,7 @@ import javax.ws.rs.core.Application;
  *
  * @author Ivar Grimstad (ivar.grimstad@gmail.com)
  */
-@ApplicationPath("api")
+@ApplicationPath("")
 public class ApplicationConfig extends Application {
 
    @Override
