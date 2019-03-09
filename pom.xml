@@ -17,6 +17,7 @@
         <module>dukes-thorntail</module>
         <module>dukes-tomee</module>
         <module>dukes-helidon</module>
+        <module>dukes-quarkus</module>
   </modules>    
 
 </project>
