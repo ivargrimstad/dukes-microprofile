@@ -8,4 +8,5 @@ nbactions.xml
 nb-configuration.xml
 .distribution
 */audit.log
+*/quarkus.log
 .idea/
