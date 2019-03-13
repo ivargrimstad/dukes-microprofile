@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Ivar Grimstad (ivar.grimstad@gmail.com).
+ * Copyright 2015, 2019 Ivar Grimstad (ivar.grimstad@gmail.com).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -41,12 +43,13 @@ import javax.ws.rs.core.Response;
 public class HelloResource {
 
     @Inject
-    @ConfigProperty(name = "place", defaultValue = "Sweden")
+    @ConfigProperty(name = "place", defaultValue = "World")
     private String place;
 
     @Metered
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
     public Response greet() {
-        return Response.ok("Hello "+ place + "! ...from Liberty").build();
+        return Response.ok("Hello "+ place + "!").build();
     }
 }
