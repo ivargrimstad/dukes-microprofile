@@ -45,6 +45,6 @@ public class HelloResource {
 
     @GET
     public Response greet() {
-        return Response.ok("Hello, " + place + "!").build();
+        return Response.ok("Hi, " + place + "!").build();
     }
 }

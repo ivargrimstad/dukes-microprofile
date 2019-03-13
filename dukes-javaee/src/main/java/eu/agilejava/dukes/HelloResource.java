@@ -25,7 +25,6 @@ package eu.agilejava.dukes;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.ejb.ActivationConfigProperty;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -49,6 +48,6 @@ public class HelloResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response greet() {
-      return Response.ok("Hello World" + place + "!").build();
+      return Response.ok("Hello " + place + "!").build();
    }
 }
