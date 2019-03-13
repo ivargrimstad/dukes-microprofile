@@ -25,34 +25,17 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-api</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        
-        <!--<dependency>-->
-            <!--<groupId>org.apache.geronimo.config</groupId>-->
-            <!--<artifactId>geronimo-config-impl</artifactId>-->
-            <!--<version>1.2.1</version>-->
-        <!--</dependency>-->
+
     </dependencies>
 
     <profiles>
 
         <profile>
             <id>docker-liberty</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
 
-            <dependencies>
-                <dependency>
-                    <groupId>io.openliberty.features</groupId>
-                    <artifactId>mpConfig-1.2</artifactId>
-                    <version>18.0.0.4</version>
-                    <type>esa</type>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -66,14 +49,10 @@
                                     <name>ivargrimstad/${project.artifactId}:liberty</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>websphere-liberty:javaee8</from>
-                                        <assembly>
-                                            <basedir>/opt/ibm/wlp/usr/servers/defaultServer/dropins/</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
-                                        </assembly>
+                                        <from>open-liberty:microProfile2-java8-ibm</from>
                                         <assembly>
                                             <permissions>ignore</permissions>
-                                            <basedir>/opt/ibm/wlp/usr/servers/</basedir>
+                                            <basedir>/opt/ol/wlp/usr/servers</basedir>
                                             <inline>
                                                 <files>
                                                     <file>
@@ -112,62 +91,15 @@
                 </plugins>
             </build>
         </profile>
-        
-        <profile>
-            <id>docker-payara</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>payara</alias>
-                                    <name>ivargrimstad/${project.artifactId}:payara</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>payara/server-web:5.183</from>
-                                        <assembly>
-                                            <basedir>/opt/payara5/glassfish/domains/domain1/autodeploy/</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
-                                        </assembly>
-                                        <entryPoint>
-                                            <arg>/opt/payara5/bin/asadmin</arg>
-                                            <arg>start-domain</arg>
-                                            <arg>-v</arg>
-                                        </entryPoint>
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8082:8080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>docker-wildfly</id>
+
             <build>
                 <plugins>
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
                         <version>${version.docker-maven-plugin}</version>
-
                         <configuration>
                             <images>
                                 <image>
@@ -175,57 +107,37 @@
                                     <name>ivargrimstad/${project.artifactId}:wildfly</name>
                                     <build>
                                         <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>jboss/wildfly:15.0.1.Final</from>
+                                        <from>jboss/wildfly:16.0.0.Final</from>
                                         <assembly>
-                                            <basedir>/opt/jboss/wildfly/standalone/deployments/</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
+                                            <permissions>ignore</permissions>
+                                            <user>jboss:jboss:jboss</user>
+                                            <basedir>/opt/jboss/wildfly</basedir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>
+                                                            ${project.build.directory}/${project.build.finalName}.war
+                                                        </source>
+                                                        <outputDirectory>/standalone/deployments</outputDirectory>
+                                                    </file>
+                                                    <file>
+                                                        <source>
+                                                            ${basedir}/src/main/wildfly/standalone.xml
+                                                        </source>
+                                                        <outputDirectory>/standalone/configuration</outputDirectory>
+                                                    </file>
+                                                </files>
+                                            </inline>
                                         </assembly>
+                                        <entryPoint>
+                                            <arg>/opt/jboss/wildfly/bin/standalone.sh</arg>
+                                            <arg>-bmanagement</arg>
+                                            <arg>0.0.0.0</arg>
+                                        </entryPoint>
                                     </build>
                                     <run>
                                         <ports>
-                                            <port>8083:8080</port>
-                                        </ports>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        
-        <profile>
-            <id>docker-tomee</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${version.docker-maven-plugin}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>tomee</alias>
-                                    <name>ivargrimstad/${project.artifactId}:tomee</name>
-                                    <build>
-                                        <maintainer>Ivar Grimstad (ivar.grimstad@gmail.com)</maintainer>
-                                        <from>tomee:8-jre-8.0.0-M1-webprofile</from>
-                                        <assembly>
-                                            <basedir>/usr/local/tomee/webapps/</basedir>
-                                            <descriptorRef>artifact</descriptorRef>
-                                        </assembly>
-                                    </build>
-                                    <run>
-                                        <ports>
-                                            <port>8084:8080</port>
+                                            <port>8088:8080</port>
                                         </ports>
                                     </run>
                                 </image>
