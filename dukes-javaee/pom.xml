@@ -41,7 +41,7 @@
         <profile>
             <id>docker-liberty</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
 
             <build>
@@ -101,6 +101,9 @@
         </profile>
         <profile>
             <id>docker-wildfly</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
 
             <build>
                 <plugins>
@@ -137,11 +140,6 @@
                                                 </files>
                                             </inline>
                                         </assembly>
-                                        <entryPoint>
-                                            <arg>/opt/jboss/wildfly/bin/standalone.sh</arg>
-                                            <arg>-bmanagement</arg>
-                                            <arg>0.0.0.0</arg>
-                                        </entryPoint>
                                     </build>
                                     <run>
                                         <ports>
